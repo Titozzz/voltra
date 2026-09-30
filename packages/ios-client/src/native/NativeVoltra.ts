@@ -93,6 +93,11 @@ type WidgetServerCredentials = Readonly<{
   headers?: Readonly<{ [key: string]: string }>
 }>
 
+export type VoltraActivityPushToken = {
+  activityName: string
+  pushToken: string
+}
+
 export interface Spec extends TurboModule {
   readonly onInteraction: CodegenTypes.EventEmitter<VoltraInteractionEvent>
   readonly onDynamicLiveActivityRenderFailed: CodegenTypes.EventEmitter<VoltraDynamicLiveActivityRenderFailedEvent>
@@ -111,6 +116,8 @@ export interface Spec extends TurboModule {
   listVoltraActivityIds(): Promise<string[]>
   getDynamicLiveActivityDefinitionIds(): Promise<string[]>
   isLiveActivityActive(activityName: string): boolean
+  getPushToStartToken(): Promise<string | null>
+  getActivityPushTokens(): Promise<VoltraActivityPushToken[]>
   isHeadless(): boolean
   preloadImages(images: PreloadImageOptions[]): Promise<PreloadImagesResult>
   reloadLiveActivities(activityNames?: string[] | null): Promise<void>

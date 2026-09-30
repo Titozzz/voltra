@@ -307,6 +307,17 @@ static void VoltraRejectPromise(RCTPromiseRejectBlock reject, NSString *fallback
   resolve([self.module getDynamicLiveActivityDefinitionIds]);
 }
 
+- (void)getPushToStartToken:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject
+{
+  NSString *token = [self.module getPushToStartToken];
+  resolve(token ?: (id)[NSNull null]);
+}
+
+- (void)getActivityPushTokens:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject
+{
+  resolve([self.module getActivityPushTokens]);
+}
+
 - (NSNumber *)isLiveActivityActive:(NSString *)activityName
 {
   return @([self.module isLiveActivityActive:activityName]);

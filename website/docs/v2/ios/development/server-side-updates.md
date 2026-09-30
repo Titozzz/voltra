@@ -229,6 +229,23 @@ useEffect(() => {
 
 Use only Voltra-provided tokens, which are specialized for Live Activity push notifications and different from regular device tokens. Update tokens are tied to specific Live Activities, while push-to-start tokens are for starting new activities. Update tokens are provided when Live Activities are started and may change during the activity's lifecycle. When sending notifications via APNS, use these push tokens as the target device token to route notifications to the correct Live Activity or device.
 
+### Reading tokens on demand
+
+Token events fire when the token becomes available or changes. A listener that subscribes later, for example after a headless launch or once the user signs in, does not receive the token that was already emitted. Read the current tokens at any time instead:
+
+```tsx
+import { getActivityPushTokens, getPushToStartToken } from '@use-voltra/ios-client'
+
+// iOS 17.2+, `null` when no token is available yet
+const pushToStartToken = await getPushToStartToken()
+
+// Update tokens of the running Live Activities that already have one
+const activityTokens = await getActivityPushTokens()
+// [{ activityName: 'order-123', pushToken: '80776321…' }]
+```
+
+Use the getters to sync tokens when your app starts or the user signs in, and keep the listeners to catch tokens that arrive or rotate while the app is running.
+
 ## Broadcast push notifications (iOS 18+)
 
 Starting with iOS 18 and iPadOS 18, you can use **broadcast push notifications** to update many Live Activities with a single push notification. Instead of sending individual notifications to each device token, you send one broadcast to a shared channel—all Live Activities subscribed to that channel receive the update. This is ideal for scenarios like live sports scores or flight status where many users follow the same event.

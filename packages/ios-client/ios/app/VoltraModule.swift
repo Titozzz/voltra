@@ -160,6 +160,14 @@ public enum VoltraErrors: Error, CustomNSError {
     impl.getDynamicLiveActivityDefinitionIds()
   }
 
+  @objc public func getPushToStartToken() -> String? {
+    impl.getPushToStartToken()
+  }
+
+  @objc public func getActivityPushTokens() -> [[String: String]] {
+    impl.getActivityPushTokens()
+  }
+
   @objc public func isLiveActivityActive(_ activityName: String) -> Bool {
     impl.isLiveActivityActive(name: activityName)
   }

@@ -5,6 +5,7 @@ import { renderLiveActivityToString, type DismissalPolicy, type LiveActivityVari
 import { addVoltraListener } from '../events.js'
 import { logger } from '../logger.js'
 import { assertRunningOnApple, useUpdateOnHMR } from '../utils/index.js'
+import type { VoltraActivityPushToken } from '../native/NativeVoltra.js'
 import { getNativeVoltra } from '../VoltraModule.js'
 
 export type SharedLiveActivityOptions = {
@@ -216,6 +217,24 @@ export const isLiveActivityActive = (activityName: string): boolean => {
   if (!assertRunningOnApple()) return false
 
   return getNativeVoltra().isLiveActivityActive(activityName)
+}
+
+/**
+ * Returns the current push-to-start token (iOS 17.2+), or `null` when there is none.
+ * Unlike `activityPushToStartTokenReceived`, it can be read at any time, including after a headless launch.
+ */
+export const getPushToStartToken = async (): Promise<string | null> => {
+  if (!assertRunningOnApple()) return null
+  return getNativeVoltra().getPushToStartToken()
+}
+
+/**
+ * Returns the update token of every running Live Activity that already has one.
+ * Unlike `activityTokenReceived`, it can be read at any time, including after a headless launch.
+ */
+export const getActivityPushTokens = async (): Promise<VoltraActivityPushToken[]> => {
+  if (!assertRunningOnApple()) return []
+  return getNativeVoltra().getActivityPushTokens()
 }
 
 export async function endAllLiveActivities(): Promise<void> {

@@ -16,6 +16,8 @@ export { isGlassSupported, isHeadless, useIsHeadless } from './helpers.js'
 export { logger, type VoltraLogLevel } from './logger.js'
 export {
   endAllLiveActivities,
+  getActivityPushTokens,
+  getPushToStartToken,
   type EndLiveActivityOptions,
   isLiveActivityActive,
   type SharedLiveActivityOptions,
@@ -40,6 +42,7 @@ export {
   type DynamicLiveActivityProps,
   type DynamicLiveActivityPropsValue,
 } from './live-activity/dynamic-api.js'
+export type { VoltraActivityPushToken } from './native/NativeVoltra.js'
 export type { DismissalPolicy, LiveActivityVariants } from '@use-voltra/ios'
 export {
   clearPreloadedImages,

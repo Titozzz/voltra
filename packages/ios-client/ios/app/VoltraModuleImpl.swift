@@ -265,6 +265,21 @@ public class VoltraModuleImpl {
     return liveActivityService.dynamicLiveActivityDefinitionIds()
   }
 
+  /// Current push-to-start token, read from ActivityKit (iOS 17.2+).
+  func getPushToStartToken() -> String? {
+    guard #available(iOS 17.2, *) else { return nil }
+    return Activity<VoltraAttributes>.pushToStartToken?.hexString
+  }
+
+  /// Update tokens of the running activities that already have one.
+  func getActivityPushTokens() -> [[String: String]] {
+    guard #available(iOS 16.4, *) else { return [] }
+    return Activity<VoltraAttributes>.activities.compactMap { activity in
+      guard let token = activity.pushToken else { return nil }
+      return ["activityName": activity.attributes.name, "pushToken": token.hexString]
+    }
+  }
+
   func isLiveActivityActive(name: String) -> Bool {
     guard #available(iOS 16.4, *) else { return false }
     return liveActivityService.isActivityActive(name: name)
