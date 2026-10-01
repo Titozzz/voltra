@@ -116,6 +116,7 @@ export interface Spec extends TurboModule {
   listVoltraActivityIds(): Promise<string[]>
   getDynamicLiveActivityDefinitionIds(): Promise<string[]>
   isLiveActivityActive(activityName: string): boolean
+  areActivitiesEnabled(): boolean
   getPushToStartToken(): Promise<string | null>
   getActivityPushTokens(): Promise<VoltraActivityPushToken[]>
   isHeadless(): boolean

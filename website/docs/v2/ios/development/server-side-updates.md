@@ -246,6 +246,14 @@ const activityTokens = await getActivityPushTokens()
 
 Use the getters to sync tokens when your app starts or the user signs in, and keep the listeners to catch tokens that arrive or rotate while the app is running.
 
+People can turn Live Activities off for your app in Settings. Check `areActivitiesEnabled()` when the app comes to the foreground and send it with the push-to-start token, so your server can skip starts that would be ignored:
+
+```tsx
+import { areActivitiesEnabled } from '@use-voltra/ios-client'
+
+const enabled = areActivitiesEnabled()
+```
+
 ## Broadcast push notifications (iOS 18+)
 
 Starting with iOS 18 and iPadOS 18, you can use **broadcast push notifications** to update many Live Activities with a single push notification. Instead of sending individual notifications to each device token, you send one broadcast to a shared channel—all Live Activities subscribed to that channel receive the update. This is ideal for scenarios like live sports scores or flight status where many users follow the same event.

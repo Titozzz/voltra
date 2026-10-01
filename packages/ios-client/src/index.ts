@@ -15,6 +15,7 @@ export * from './events.js'
 export { isGlassSupported, isHeadless, useIsHeadless } from './helpers.js'
 export { logger, type VoltraLogLevel } from './logger.js'
 export {
+  areActivitiesEnabled,
   endAllLiveActivities,
   getActivityPushTokens,
   getPushToStartToken,

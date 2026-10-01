@@ -220,6 +220,15 @@ export const isLiveActivityActive = (activityName: string): boolean => {
 }
 
 /**
+ * Whether the person allows Live Activities for this app. They can change it in Settings at any time,
+ * so read it again when the app comes to the foreground.
+ */
+export const areActivitiesEnabled = (): boolean => {
+  if (!assertRunningOnApple()) return false
+  return getNativeVoltra().areActivitiesEnabled()
+}
+
+/**
  * Returns the current push-to-start token (iOS 17.2+), or `null` when there is none.
  * Unlike `activityPushToStartTokenReceived`, it can be read at any time, including after a headless launch.
  */

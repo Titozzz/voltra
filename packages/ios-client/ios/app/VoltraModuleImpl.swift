@@ -265,6 +265,12 @@ public class VoltraModuleImpl {
     return liveActivityService.dynamicLiveActivityDefinitionIds()
   }
 
+  /// Whether the person allows Live Activities for this app.
+  func areActivitiesEnabled() -> Bool {
+    guard #available(iOS 16.2, *) else { return false }
+    return ActivityAuthorizationInfo().areActivitiesEnabled
+  }
+
   /// Current push-to-start token, read from ActivityKit (iOS 17.2+).
   func getPushToStartToken() -> String? {
     guard #available(iOS 17.2, *) else { return nil }
